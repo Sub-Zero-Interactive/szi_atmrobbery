@@ -23,5 +23,5 @@ dependencies {
     'es_extended',
     'mhacking',
     'mythic_progbar',
-    'mythic_notfiy',
+    'mythic_notify',
 }
