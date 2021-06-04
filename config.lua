@@ -19,7 +19,7 @@ Config.RemoveItems = {
 Config.Rewards = {
     {
         name = 'money', -- Choices are money, bank, black_money or an item name
-        amount = 1000, -- The amount you take per cycle (MaxTake is how many times it cycles max)
+        amount = math.random(100, 1000) -- The random amount you take per cycle (MaxTake is how many times it cycles max)
     }
 }
 
