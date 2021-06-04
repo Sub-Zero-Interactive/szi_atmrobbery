@@ -2,8 +2,6 @@ ESX = nil
 
 TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 
-local cooldowns = {}
-
 ESX.RegisterServerCallback('szi_atmrobbery:canHack', function(source, cb, pos)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	local xPlayers = ESX.GetPlayers()
@@ -60,6 +58,22 @@ AddEventHandler('szi_atmrobbery:hackSuccess', function(success)
 	if success then
 		for k,v in pairs(Config.RemoveItems) do
    		 	xPlayer.removeInventoryItem(v.name, 1)
+		end
+	end
+end)
+
+RegisterNetEvent('szi_atmrobbery:notifyPolice')
+AddEventHandler('szi_atmrobbery:notifyPolice', function(street1, street2, pos)
+    local xPlayers = ESX.GetPlayers()
+    local startedHacking = true
+
+    if startedHacking == true then
+		for i=1, #xPlayers, 1 do
+			local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
+            if xPlayer.job.name == 'police' then
+                TriggerClientEvent('szi_atmrobbery:blip', xPlayers[i], pos.x, pos.y, pos.z)
+                TriggerClientEvent('szi_atmrobbery:notifyPolice', xPlayers[i], 'Robbery In Progress : ATM | ' .. street1 .. " | " .. street2 .. ' ')
+			end
 		end
 	end
 end)
