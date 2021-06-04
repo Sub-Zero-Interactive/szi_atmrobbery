@@ -22,6 +22,5 @@ client_scripts {
 dependencies {
     'es_extended',
     'mhacking',
-    'fivem-target',
     'mythic_progbar',
 }
