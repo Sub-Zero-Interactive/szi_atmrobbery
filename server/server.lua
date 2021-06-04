@@ -63,21 +63,3 @@ AddEventHandler('szi_atmrobbery:hackSuccess', function(success)
 		end
 	end
 end)
-
-RegisterNetEvent("szi_atmrobbery:startCooldown")
-AddEventHandler('szi_atmrobbery:startCooldown', function(pos)
-	cooldowns[pos] = Config.CooldownTime
-end)
-
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0.5 * 60000)
-		for k,v in pairs(cooldowns) do 
-		    if v >= 1 then 
-			    cooldowns[k] = v - 1
-		    else
-			    cooldowns[k] = nil
-		    end
-		end
-	end
-end)
