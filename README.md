@@ -3,6 +3,7 @@ This is a script that allows you to rob atm's using fivem-target.
 
 ## Requirements
 - [es_extended](https://github.com/esx-framework/es_extended/tree/legacy)
+- [mhacking](https://github.com/GHMatti/FiveM-Scripts/tree/master/mhacking)
 - [fivem-target](https://github.com/meta-hub/fivem-target)
 - [mythic_progbar](https://github.com/HalCroves/mythic_progbar)
 
