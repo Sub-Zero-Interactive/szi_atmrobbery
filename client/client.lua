@@ -17,22 +17,42 @@ end)
 AddEventHandler('onClientResourceStart', function (resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then return end
 	for k,v in pairs(Config.AtmModels) do 
-		exports["fivem-target"]:AddTargetModel({
-			name = "robbery",
-			label = "ATM Robbery",
-			icon = "fas fa-dog",
-			model = GetHashKey(v.prop),
-			interactDist = 2.0,
-			onInteract = StartHacking,
-			options = {
-			  {
-				name = "rob",
-				label = "Rob ATM"
-			  }
-			},
-			vars = {}
-	 	 })
-	end
+		if Config.FivemTarget then
+		    exports["fivem-target"]:AddTargetModel({
+		    	name = "robbery",
+		    	label = "ATM Robbery",
+		    	icon = "fas fa-dog",
+		    	model = GetHashKey(v.prop),
+		    	interactDist = 2.0,
+		    	onInteract = StartHacking,
+		    	options = {
+		    	  {
+		    		name = "rob",
+		    		label = "Rob ATM"
+		    	  }
+		    	},
+		    	vars = {}
+	 	    })
+		else
+			local atms = {
+				-870868698,
+				-1126237515,
+				-1364697528,
+				506770882,
+			}
+			exports["bt-target"]:AddTargetModel(atms, {
+				options = {
+					{
+						event = "szi_atmrobbery:startHacker",
+						icon = "fas fa-piggy-bank",
+						label = "Rob ATM",
+					},
+				},
+				job = {"all"},
+				distance = 4.5
+			})
+		end
+	end    
 end)
 
 function FinishHackings(success)
@@ -120,3 +140,8 @@ function StartHacking()
 	    end)
     end
 end
+
+RegisterNetEvent("szi_atmrobbery:startHacker")
+AddEventHandler("szi_atmrobbery:startHacker", function()
+	StartHacking()
+end)
