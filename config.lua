@@ -38,6 +38,8 @@ Config.AtmModels = {
     }
 }
 
+Config.FivemTarget = false -- set to 'true' if you are using fivem-target or 'false' for bt-target
+
 Config.PhoneModel = -1038739674 -- The Phone model prop when hacking
 Config.PoliceRequired = 1 -- Amount of Police required to hack an ATM
 
