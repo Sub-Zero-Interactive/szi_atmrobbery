@@ -2,7 +2,7 @@ local hasStarted, startedHacking, cancontinue = false, false, false
 local CurrentCoords, started = nil, nil
 local phoneModel = Config.PhoneModel
 local taken = 0
-local pos = GetEntityCoords(GetPlayerPed(-1),  true)
+local pos = GetEntityCoords(PlayerPedId(),  true)
 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
 local street1 = GetStreetNameFromHashKey(s1)
 local street2 = GetStreetNameFromHashKey(s2)
@@ -23,7 +23,7 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 		        exports["fivem-target"]:AddTargetModel({
 		    	    name = "robbery",
 		    	    label = "ATM Robbery",
-		    	    icon = "fas fa-dog",
+		    	    icon = "fas fa-piggy-bank",
 		    	    model = GetHashKey(v.prop),
 		    	    interactDist = 2.0,
 		    	    onInteract = StartHacking,
@@ -36,12 +36,11 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 		    	vars = {}
 	 	        })
 		    else
-			    local atms = {
-			    	-870868698,
-			    	-1126237515,
-			    	-1364697528,
-			    	506770882,
-			    }
+				local atms = {}
+		        for k,v in pairs(Config.AtmModels) do 
+			        table.insert(atms,GetHashKey(v.prop))
+		 	    end
+			    Wait(5)
 			    exports["bt-target"]:AddTargetModel(atms, {
 			    	options = {
 			    		{
@@ -51,7 +50,7 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 			    		},
 			    	},
 			    	job = {"all"},
-			    	distance = 4.5
+			    	distance = 1.5
 			    })
 		    end
 	    end    
@@ -62,7 +61,6 @@ function FinishHackings(success)
 	TriggerServerEvent("szi_atmrobbery:hackSuccess",success)
 	FinishHacking(success)
 	Cooldown(true)
-	startedHacking = false
 end
 
 function FinishHacking(success)
@@ -73,7 +71,7 @@ function FinishHacking(success)
 		while not HasAnimDictLoaded(Config.StealingDict) do
 			 Wait(10)
 		end
-		TaskPlayAnim(PlayerPed,Config.StealingDict,Config.StealingAnim,8.0,8.0,-1,1,0,false,false,false)
+		TaskPlayAnim(PlayerPed,Config.StealingDict,Config.StealingAnim,1.0,1.0,-1,1,0,false,false,false)
 		cancontinue = true
 		ESX.ShowHelpNotification(_U('press_stop'))
 		exports['mythic_progbar']:Progress({
@@ -94,10 +92,10 @@ function FinishHacking(success)
 				taken = taken + 1
 				FinishHacking(true)
 			else
-				hasStarted = false
+				ClearPedTasks(PlayerPed)
 				cancontinue = false
 				taken = 0
-				ClearPedTasks(PlayerPed)
+				Cooldown(true)
 			end
 		end)
 	else
@@ -107,17 +105,16 @@ function FinishHacking(success)
 		ClearPedTasks(PlayerPed)
 		cancontinue = false
 		taken = 0
-		Citizen.Wait(Config.CooldownTime * 1000)
-		hasStarted = false
+		Cooldown(true)
 	end
 end
 
 
 function newPhoneProp()
-	local x,y,z = table.unpack(GetEntityCoords(playerPed))
+	local x,y,z = table.unpack(GetEntityCoords(PlayerPed))
 	local boneIndex = GetPedBoneIndex(PlayerPed, 28422)
 	prop = CreateObject(phoneModel, x, y, z, true, true, true)
-	AttachEntityToEntity(prop, playerPed, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+	AttachEntityToEntity(prop, PlayerPed, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
 end
 
 function StartHacking()
