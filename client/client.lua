@@ -61,7 +61,6 @@ function FinishHackings(success)
 	TriggerServerEvent("szi_atmrobbery:hackSuccess",success)
 	FinishHacking(success)
 	Cooldown(true)
-	startedHacking = false
 end
 
 function FinishHacking(success)
@@ -72,7 +71,7 @@ function FinishHacking(success)
 		while not HasAnimDictLoaded(Config.StealingDict) do
 			 Wait(10)
 		end
-		TaskPlayAnim(PlayerPed,Config.StealingDict,Config.StealingAnim,8.0,8.0,-1,1,0,false,false,false)
+		TaskPlayAnim(PlayerPed,Config.StealingDict,Config.StealingAnim,1.0,1.0,-1,1,0,false,false,false)
 		cancontinue = true
 		ESX.ShowHelpNotification(_U('press_stop'))
 		exports['mythic_progbar']:Progress({
@@ -93,10 +92,10 @@ function FinishHacking(success)
 				taken = taken + 1
 				FinishHacking(true)
 			else
-				hasStarted = false
+				ClearPedTasks(PlayerPed)
 				cancontinue = false
 				taken = 0
-				ClearPedTasks(PlayerPed)
+				Cooldown(true)
 			end
 		end)
 	else
@@ -106,17 +105,16 @@ function FinishHacking(success)
 		ClearPedTasks(PlayerPed)
 		cancontinue = false
 		taken = 0
-		Citizen.Wait(Config.CooldownTime * 1000)
-		hasStarted = false
+		Cooldown(true)
 	end
 end
 
 
 function newPhoneProp()
-	local x,y,z = table.unpack(GetEntityCoords(playerPed))
+	local x,y,z = table.unpack(GetEntityCoords(PlayerPed))
 	local boneIndex = GetPedBoneIndex(PlayerPed, 28422)
 	prop = CreateObject(phoneModel, x, y, z, true, true, true)
-	AttachEntityToEntity(prop, playerPed, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+	AttachEntityToEntity(prop, PlayerPed, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
 end
 
 function StartHacking()
