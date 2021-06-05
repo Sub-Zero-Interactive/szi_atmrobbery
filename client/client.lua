@@ -2,7 +2,7 @@ local hasStarted, startedHacking, cancontinue = false, false, false
 local CurrentCoords, started = nil, nil
 local phoneModel = Config.PhoneModel
 local taken = 0
-local pos = GetEntityCoords(GetPlayerPed(-1),  true)
+local pos = GetEntityCoords(PlayerPedId(),  true)
 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
 local street1 = GetStreetNameFromHashKey(s1)
 local street2 = GetStreetNameFromHashKey(s2)
@@ -23,7 +23,7 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 		        exports["fivem-target"]:AddTargetModel({
 		    	    name = "robbery",
 		    	    label = "ATM Robbery",
-		    	    icon = "fas fa-dog",
+		    	    icon = "fas fa-piggy-bank",
 		    	    model = GetHashKey(v.prop),
 		    	    interactDist = 2.0,
 		    	    onInteract = StartHacking,
@@ -36,12 +36,11 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 		    	vars = {}
 	 	        })
 		    else
-			    local atms = {
-			    	-870868698,
-			    	-1126237515,
-			    	-1364697528,
-			    	506770882,
-			    }
+				local atms = {}
+		 for k,v in pairs(Config.AtmModels) do 
+			table.insert(atms,GetHashKey(v.prop))
+		 	end
+			 Wait(5)
 			    exports["bt-target"]:AddTargetModel(atms, {
 			    	options = {
 			    		{
@@ -51,7 +50,7 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 			    		},
 			    	},
 			    	job = {"all"},
-			    	distance = 4.5
+			    	distance = 1.5
 			    })
 		    end
 	    end    
