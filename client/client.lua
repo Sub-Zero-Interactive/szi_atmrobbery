@@ -37,10 +37,10 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 	 	        })
 		    else
 				local atms = {}
-		 for k,v in pairs(Config.AtmModels) do 
-			table.insert(atms,GetHashKey(v.prop))
-		 	end
-			 Wait(5)
+		        for k,v in pairs(Config.AtmModels) do 
+			        table.insert(atms,GetHashKey(v.prop))
+		 	    end
+			    Wait(5)
 			    exports["bt-target"]:AddTargetModel(atms, {
 			    	options = {
 			    		{
