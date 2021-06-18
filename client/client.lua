@@ -2,11 +2,11 @@ local hasStarted, startedHacking, cancontinue = false, false, false
 local CurrentCoords, started = nil, nil
 local phoneModel = Config.PhoneModel
 local taken = 0
-local pos = GetEntityCoords(PlayerPedId(),  true)
+local PlayerPed = PlayerPedId()
+local pos = GetEntityCoords(PlayerPed,  true)
 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
 local street1 = GetStreetNameFromHashKey(s1)
 local street2 = GetStreetNameFromHashKey(s2)
-local PlayerPed = PlayerPedId()
 
 DeleteObject(prop)
 Citizen.CreateThread(function()
@@ -18,42 +18,42 @@ end)
 
 AddEventHandler('onClientResourceStart', function (resourceName)
 	if (GetCurrentResourceName() ~= resourceName) then return end
-	    for k,v in pairs(Config.AtmModels) do 
-		    if Config.FivemTarget then
-		        exports["fivem-target"]:AddTargetModel({
-		    	    name = "robbery",
-		    	    label = "ATM Robbery",
-		    	    icon = "fas fa-piggy-bank",
-		    	    model = GetHashKey(v.prop),
-		    	    interactDist = 2.0,
-		    	    onInteract = StartHacking,
-		    	    options = {
-		    	        {
-		    		        name = "rob",
-		    		        label = "Rob ATM"
-		    	        }
-		    	    },
-		    	vars = {}
-	 	        })
-		    else
-				local atms = {}
-		        for k,v in pairs(Config.AtmModels) do 
-			        table.insert(atms,GetHashKey(v.prop))
-		 	    end
-			    Wait(5)
-			    exports["bt-target"]:AddTargetModel(atms, {
-			    	options = {
-			    		{
-			    			event = "szi_atmrobbery:startHacker",
-			    			icon = "fas fa-piggy-bank",
-			    			label = "Rob ATM",
-			    		},
-			    	},
-			    	job = {"all"},
-			    	distance = 1.5
-			    })
-		    end
-	    end    
+	for k,v in pairs(Config.AtmModels) do 
+	    if Config.FivemTarget then
+	        exports["fivem-target"]:AddTargetModel({
+	    	    name = "robbery",
+	    	    label = "ATM Robbery",
+	    	    icon = "fas fa-piggy-bank",
+	    	    model = GetHashKey(v.prop),
+	    	    interactDist = 2.0,
+	    	    onInteract = StartHacking,
+	    	    options = {
+	    	        {
+	    		        name = "rob",
+	    		        label = "Rob ATM"
+	    	        }
+	    	    },
+	    	vars = {}
+	        })
+	    else
+			local atms = {}
+	        for k,v in pairs(Config.AtmModels) do 
+		        table.insert(atms,GetHashKey(v.prop))
+	 	    end
+		    Wait(5)
+		    exports["bt-target"]:AddTargetModel(atms, {
+		    	options = {
+		    		{
+		    			event = "szi_atmrobbery:startHacker",
+		    			icon = "fas fa-piggy-bank",
+		    			label = "Rob ATM",
+		    		},
+		    	},
+		    	job = {"all"},
+		    	distance = 1.5
+		    })
+	    end
+	end    
 end)
 
 function FinishHackings(success)
@@ -173,7 +173,6 @@ function Cooldown(hasStarted)
     local timer = Config.CooldownTime
     while hasStarted == true do
         Citizen.Wait(1000)
-
         if timer > 0 then
             timer = timer -1
         end
