@@ -42,7 +42,7 @@ AddEventHandler('szi_atmrobbery:success', function(pos)
 		    if xPlayer.canCarryItem(v.name, v.amount) then
     	    	xPlayer.addInventoryItem(v.name, v.amount)
 	    	else
-   	     	xPlayer.showNotification(_U('no_room'))
+   	     	    xPlayer.showNotification(_U('no_room'))
 	    	end
         elseif (v.name == "bank") or (v.name == "black_money") then
             xPlayer.addAccountMoney(v.name, v.amount)
