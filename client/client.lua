@@ -3,10 +3,6 @@ local CurrentCoords, started = nil, nil
 local phoneModel = Config.PhoneModel
 local taken = 0
 local PlayerPed = PlayerPedId()
-local pos = GetEntityCoords(PlayerPed,  true)
-local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
-local street1 = GetStreetNameFromHashKey(s1)
-local street2 = GetStreetNameFromHashKey(s2)
 
 DeleteObject(prop)
 Citizen.CreateThread(function()
@@ -122,6 +118,10 @@ function StartHacking()
 		startedHacking = true
 	    ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
 		    if CanHack then
+				local pos = GetEntityCoords(PlayerPed,  true)
+                local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
+                local street1 = GetStreetNameFromHashKey(s1)
+                local street2 = GetStreetNameFromHashKey(s2)
 			    ClearPedTasks(PlayerPed)
 			    newPhoneProp()
 			    RequestAnimDict(Config.HackingDict)
