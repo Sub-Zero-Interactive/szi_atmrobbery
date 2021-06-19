@@ -2,7 +2,6 @@ local hasStarted, startedHacking, cancontinue = false, false, false
 local CurrentCoords, started = nil, nil
 local phoneModel = Config.PhoneModel
 local taken = 0
-local PlayerPed = PlayerPedId()
 
 DeleteObject(prop)
 Citizen.CreateThread(function()
@@ -62,12 +61,12 @@ end
 function FinishHacking(success)
 	TriggerEvent('mhacking:hide')
 	if success and taken < Config.MaxTake then
-		ClearPedTasks(PlayerPed)
+		ClearPedTasks(PlayerPedId())
 		RequestAnimDict(Config.StealingDict)
 		while not HasAnimDictLoaded(Config.StealingDict) do
 			 Wait(10)
 		end
-		TaskPlayAnim(PlayerPed,Config.StealingDict,Config.StealingAnim,1.0,1.0,-1,1,0,false,false,false)
+		TaskPlayAnim(PlayerPedId(),Config.StealingDict,Config.StealingAnim,1.0,1.0,-1,1,0,false,false,false)
 		cancontinue = true
 		ESX.ShowHelpNotification(_U('press_stop'))
 		exports['mythic_progbar']:Progress({
@@ -88,7 +87,7 @@ function FinishHacking(success)
 				taken = taken + 1
 				FinishHacking(true)
 			else
-				ClearPedTasks(PlayerPed)
+				ClearPedTasks(PlayerPedId())
 				cancontinue = false
 				taken = 0
 				Cooldown(true)
@@ -98,7 +97,7 @@ function FinishHacking(success)
 		if not (taken < Config.MaxTake) then
 		    ESX.ShowHelpNotification(_U('max_amount'))
 		end
-		ClearPedTasks(PlayerPed)
+		ClearPedTasks(PlayerPedId())
 		cancontinue = false
 		taken = 0
 		Cooldown(true)
@@ -107,10 +106,10 @@ end
 
 
 function newPhoneProp()
-	local x,y,z = table.unpack(GetEntityCoords(PlayerPed))
-	local boneIndex = GetPedBoneIndex(PlayerPed, 28422)
+	local x,y,z = table.unpack(GetEntityCoords(PlayerPedId()))
+	local boneIndex = GetPedBoneIndex(PlayerPedId(), 28422)
 	prop = CreateObject(phoneModel, x, y, z, true, true, true)
-	AttachEntityToEntity(prop, PlayerPed, boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
+	AttachEntityToEntity(prop, PlayerPedId(), boneIndex, 0.12, 0.028, 0.001, 10.0, 175.0, 0.0, true, true, false, true, 1, true)
 end
 
 function StartHacking()
@@ -118,17 +117,17 @@ function StartHacking()
 		startedHacking = true
 	    ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
 		    if CanHack then
-				local pos = GetEntityCoords(PlayerPed,  true)
+				local pos = GetEntityCoords(PlayerPedId(),  true)
                 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
                 local street1 = GetStreetNameFromHashKey(s1)
                 local street2 = GetStreetNameFromHashKey(s2)
-			    ClearPedTasks(PlayerPed)
+			    ClearPedTasks(PlayerPedId())
 			    newPhoneProp()
 			    RequestAnimDict(Config.HackingDict)
 			    while not HasAnimDictLoaded(Config.HackingDict) do
 			        Wait(1)
 			    end
-			    TaskPlayAnim(PlayerPed,Config.HackingDict,Config.HackingAnim ,8.0,8.0,-1,1,0,false,false,false)
+			    TaskPlayAnim(PlayerPedId(),Config.HackingDict,Config.HackingAnim ,8.0,8.0,-1,1,0,false,false,false)
 			    TriggerEvent("mhacking:show")
 			    TriggerEvent("mhacking:start",5,30,FinishHackings)
 				TriggerServerEvent('szi_atmrobbery:notifyPolice', street1, street2, pos)
