@@ -1,0 +1,5 @@
+{
+    "version": "main",
+    "commit" : "1.4",
+    "changelog": "Fixed blip & added version checker"
+}
