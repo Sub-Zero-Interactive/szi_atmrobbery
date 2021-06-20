@@ -41,7 +41,7 @@ Permission is hereby granted, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software with 'All rights reserved'. Even if 'All rights reserved' is very clear :
 
-  You shall not resell this software
+  You shall not sell and/or resell this software
   The rights to use, copy, modify and merge
   The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
