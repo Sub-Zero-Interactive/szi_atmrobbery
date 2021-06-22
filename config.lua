@@ -27,13 +27,13 @@ Config.AtmModels = {
     {
         prop = 'prop_atm_01'
     },
-	{
+    {
         prop = 'prop_atm_02'
     },
-	{
+    {
         prop = 'prop_atm_03'
     },
-	{
+    {
         prop = 'prop_fleeca_atm'
     }
 }
@@ -58,6 +58,3 @@ Config.HackingAnim = 'cellphone_horizontal_base'
 
 Config.StealingDict = 'anim@heists@prison_heistig1_p1_guard_checks_bus'
 Config.StealingAnim = 'loop'
-
-
-	
