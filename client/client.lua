@@ -8,8 +8,8 @@ of this software and associated documentation files (the "Software"), to deal
 in the Software with 'All rights reserved'. Even if 'All rights reserved' is very clear :
 
   You shall not sell and/or resell this software
-  The rights to use, copy, modify and merge
-  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+  The rights to use, modify and merge
+  The above copyright notice and this permission notice shall be included in all copies and files of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
