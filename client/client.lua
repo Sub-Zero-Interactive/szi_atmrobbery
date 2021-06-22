@@ -42,7 +42,7 @@ AddEventHandler('onClientResourceStart', function (resourceName)
 		    			event = "szi_atmrobbery:startHacker",
 		    			icon = "fas fa-piggy-bank",
 		    			label = "Rob ATM",
-		    		},
+		    		}
 		    	},
 		    	job = {"all"},
 		    	distance = 1.5
@@ -117,6 +117,7 @@ function StartHacking()
 		startedHacking = true
 	    ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
 		    if CanHack then
+                local chance = math.random(Config.MinChance, Config.MaxChance
 				local pos = GetEntityCoords(PlayerPedId(),  true)
                 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
                 local street1 = GetStreetNameFromHashKey(s1)
@@ -130,7 +131,9 @@ function StartHacking()
 			    TaskPlayAnim(PlayerPedId(),Config.HackingDict,Config.HackingAnim ,8.0,8.0,-1,1,0,false,false,false)
 			    TriggerEvent("mhacking:show")
 			    TriggerEvent("mhacking:start",5,30,FinishHackings)
-				TriggerServerEvent('szi_atmrobbery:notifyPolice', street1, street2, pos)
+                if chance <= Config.Chance then
+				    TriggerServerEvent('szi_atmrobbery:notifyPolice', street1, street2, pos)
+                end
 		    else
 			    ESX.ShowHelpNotification(_U('cant_hack'), false, true, 2000)
 			    Wait(2000)
@@ -153,7 +156,7 @@ end)
 
 RegisterNetEvent('szi_atmrobbery:blip')
 AddEventHandler('szi_atmrobbery:blip', function(x,y,z)
-  Blip = AddBlipForCoord(x,y,z)
+    Blip = AddBlipForCoord(x,y,z)
     SetBlipSprite(Blip,  500)
     SetBlipColour(Blip,  1)
     SetBlipAlpha(Blip,  250)
