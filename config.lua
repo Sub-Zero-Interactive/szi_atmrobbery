@@ -44,6 +44,10 @@ Config.PhoneModel = -1038739674 -- The Phone model prop when hacking
 Config.PoliceRequired = 1 -- Amount of Police required to hack an ATM
 Config.CooldownTime =  300 -- Cooldown in Seconds before someone can rob an ATM
 
+Config.MaxChance = 100 -- Max number the chance can go up to (default 100)
+Config.Chance =  15 -- The % Chance of notifying police when a robbery is started (25 = 25%)
+Config.MinChance =  1 -- Minimum number the chance can be (Keep at 1 unless you know what you are doing)
+
 Config.BlipTimer = 45-- Blip timer  until removed in seconds
 
 Config.MaxTake = 3 -- The amount of times the "Cycle" can happen (links with reward ammount)
