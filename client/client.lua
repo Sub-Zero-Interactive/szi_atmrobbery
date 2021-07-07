@@ -137,7 +137,7 @@ function StartHacking()
 		startedHacking = true
 	    ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
 		    if CanHack then
-                local chance = math.random(Config.MinChance, Config.MaxChance
+                local chance = math.random(Config.MinChance, Config.MaxChance)
 				local pos = GetEntityCoords(PlayerPedId(),  true)
                 local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
                 local street1 = GetStreetNameFromHashKey(s1)
