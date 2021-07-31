@@ -43,14 +43,14 @@ ESX.RegisterServerCallback('szi_atmrobbery:canHack', function(source, cb, pos)
 	    end
 	end
     
-	if (itemcount == #(Config.RequiredItems)) and (police >= Config.PoliceRequired) then
+	if (itemcount == #(Config.RequiredItems)) and (police >= GetOptions("PoliceRequired")) then
 	    cb(true)
 	    itemcount = 0
 	else
 	    cb(false)
 	    itemcount = 0
-		if police < Config.PoliceRequired then
-			TriggerClientEvent('esx:showNotification', source, _U('min_police', Config.PoliceRequired))
+		if police < GetOptions("PoliceRequired") then
+			TriggerClientEvent('esx:showNotification', source, _U('min_police', GetOptions("PoliceRequired")))
 		end
 	end
 end)
