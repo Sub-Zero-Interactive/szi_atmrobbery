@@ -57,7 +57,7 @@ Config.Options = {
         PhoneModel = -1038739674, -- The Phone model prop when hacking
         CooldownTime = 300, -- Cooldown in Seconds before someone can rob an ATM
         MaxChance = 100, -- Max number the chance can go up to (default 100)
-        Chance = 100, -- The % Chance of notifying police when a robbery is started (25 = 25%)
+        Chance = 15, -- The % Chance of notifying police when a robbery is started (25 = 25%)
         MinChance = 1, -- Minimum number the chance can be (Keep at 1 unless you know what you are doing)
         RobTime = 10, -- How long it takes to rob the atm per cycle in seconds
         MaxTake = 3 -- The amount of times the "Cycle" can happen (links with reward ammount)
