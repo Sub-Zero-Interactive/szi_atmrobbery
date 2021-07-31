@@ -3,7 +3,7 @@ game 'gta5'
 
 author 'Sub-Zero Interactive'
 description 'This is a script that allows you to rob atms using fivem-target or bt-target.'
-version '1.6'
+version '1.7'
 
 server_scripts {
     '@es_extended/locale.lua',
@@ -21,7 +21,5 @@ client_scripts {
 
 dependencies {
     'es_extended',
-    'mhacking',
     'mythic_progbar',
-    'mythic_notify',
 }
