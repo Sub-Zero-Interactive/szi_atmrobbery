@@ -32,42 +32,42 @@ Citizen.CreateThread(function()
 end)
 
 AddEventHandler('onClientResourceStart', function (resourceName)
-	if (GetCurrentResourceName() ~= resourceName) then return end
+if (GetCurrentResourceName() ~= resourceName) then return end
 	for k,v in pairs(Config.AtmModels) do 
-	    if GetDependency("FivemTarget") then
-	        exports["fivem-target"]:AddTargetModel({
-	    	    name = "atm-robbery",
-	    	    label = "ATM Robbery",
-	    	    icon = "fas fa-piggy-bank",
-	    	    model = GetHashKey(v.prop),
-	    	    interactDist = 2.0,
-	    	    onInteract = StartHacking,
-	    	    options = {
+		if GetDependency("FivemTarget") then
+			exports["fivem-target"]:AddTargetModel({
+	    	    	name = "atm-robbery",
+	    	    	label = "ATM Robbery",
+	    	    	icon = "fas fa-piggy-bank",
+	    	    	model = GetHashKey(v.prop),
+	    	    	interactDist = 2.0,
+	    	    	onInteract = StartHacking,
+	    	    	options = {
 	    	        {
 	    		        name = "rob",
 	    		        label = "Rob ATM"
 	    	        }
-	    	    },
-	    	vars = {}
-	        })
-	    else
+	    	    	},
+	    		vars = {}
+	        	})
+	    	else
 			local atms = {}
-	        for k,v in pairs(Config.AtmModels) do 
-		        table.insert(atms,GetHashKey(v.prop))
-	 	    end
-		    Wait(5)
-		    exports["bt-target"]:AddTargetModel(atms, {
+	        	for k,v in pairs(Config.AtmModels) do 
+		        	table.insert(atms,GetHashKey(v.prop))
+	 	   	end
+		    	Wait(5)
+		    	exports["bt-target"]:AddTargetModel(atms, {
 		    	options = {
-		    		{
-		    			event = "szi_atmrobbery:startHacker",
-		    			icon = "fas fa-piggy-bank",
-		    			label = "Rob ATM",
-		    		}
+		    	{
+		    		event = "szi_atmrobbery:startHacker",
+		    		icon = "fas fa-piggy-bank",
+		    		label = "Rob ATM",
+		    	}
 		    	},
 		    	job = {"all"},
 		    	distance = 1.5
-		    })
-	    end
+		    	})
+	   	end
 	end    
 end)
 
@@ -91,15 +91,15 @@ function FinishHacking(success)
 	    TriggerEvent('mhacking:hide')
 	end
 	if success and taken < GetOptions("MaxTake") then
-        ClearPedTasks(PlayerPedId())
-        local stealanim = GetAnim("Stealing")
-        RequestAnimDict(stealanim.dictionary)
-        while not HasAnimDictLoaded(stealanim.dictionary) do
-             Wait(10)
-        end
-        TaskPlayAnim(PlayerPedId(),stealanim.dictionary,stealanim.animation,1.0,1.0,-1,1,0,false,false,false)
-        cancontinue = true
-        ESX.ShowHelpNotification(_U('press_stop'))
+        	ClearPedTasks(PlayerPedId())
+        	local stealanim = GetAnim("Stealing")
+        	RequestAnimDict(stealanim.dictionary)
+        	while not HasAnimDictLoaded(stealanim.dictionary) do
+             		Wait(10)
+        	end
+        	TaskPlayAnim(PlayerPedId(),stealanim.dictionary,stealanim.animation,1.0,1.0,-1,1,0,false,false,false)
+        	cancontinue = true
+        	ESX.ShowHelpNotification(_U('press_stop'))
 		exports['mythic_progbar']:Progress({
 			name = "using",
 			duration = GetOptions("RobTime") * 1000,
@@ -113,16 +113,16 @@ function FinishHacking(success)
 				disableCombat = true,
 			}
 		}, function(cancelled)
-			if not cancelled then
-				TriggerServerEvent("szi_atmrobbery:success")
-				taken = taken + 1
-				FinishHacking(true)
-			else
-				ClearPedTasks(PlayerPedId())
-				cancontinue = false
-				taken = 0
-				Cooldown(true)
-			end
+		if not cancelled then
+			TriggerServerEvent("szi_atmrobbery:success")
+			taken = taken + 1
+			FinishHacking(true)
+		else
+			ClearPedTasks(PlayerPedId())
+			cancontinue = false
+			taken = 0
+			Cooldown(true)
+		end
 		end)
 	else
 		if not (taken < GetOptions("MaxTake")) then
@@ -146,39 +146,39 @@ end
 function StartHacking()
 	if not startedHacking then
 		startedHacking = true
-	    ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
-		    if CanHack then
-                local chance = math.random(GetOptions("MinChance"), GetOptions("MaxChance"))
-				local pos = GetEntityCoords(PlayerPedId(),  true)
-                local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
-                local street1 = GetStreetNameFromHashKey(s1)
-                local street2 = GetStreetNameFromHashKey(s2)
-			    ClearPedTasks(PlayerPedId())
-				newPhoneProp()
-                local HackingAnim = GetAnim("Hacking")
-                RequestAnimDict(HackingAnim.dictionary)
-                while not HasAnimDictLoaded(HackingAnim.dictionary) do
-                    Wait(1)
-                end
-                TaskPlayAnim(PlayerPedId(),HackingAnim.dictionary,HackingAnim.animation,8.0,8.0,-1,1,0,false,false,false)
+		ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
+		if CanHack then
+                	local chance = math.random(GetOptions("MinChance"), GetOptions("MaxChance"))
+			local pos = GetEntityCoords(PlayerPedId(),  true)
+                	local s1, s2 = GetStreetNameAtCoord( pos.x, pos.y, pos.z, Citizen.PointerValueInt(), Citizen.PointerValueInt() )
+                	local street1 = GetStreetNameFromHashKey(s1)
+                	local street2 = GetStreetNameFromHashKey(s2)
+			ClearPedTasks(PlayerPedId())
+			newPhoneProp()
+                	local HackingAnim = GetAnim("Hacking")
+                	RequestAnimDict(HackingAnim.dictionary)
+                	while not HasAnimDictLoaded(HackingAnim.dictionary) do
+                    		Wait(1)
+                	end
+                	TaskPlayAnim(PlayerPedId(),HackingAnim.dictionary,HackingAnim.animation,8.0,8.0,-1,1,0,false,false,false)
 				if chance <= GetOptions("Chance") then
 					TriggerServerEvent('szi_atmrobbery:notifyPolice', street1, street2, pos)
 				end
 				if GetDependency("Mhacking") then
-			        TriggerEvent("mhacking:show")
-			        TriggerEvent("mhacking:start",5,30,FinishHackings)
+			        	TriggerEvent("mhacking:show")
+			        	TriggerEvent("mhacking:start",5,30,FinishHackings)
 				else 
 					Wait(GetDependency("HackTime"))
 					FinishHackings(true)
 				end
-		    else
+		else
 			    ESX.ShowHelpNotification(_U('cant_hack'), false, true, 2000)
 			    Wait(2000)
 			    hasStarted = false
 			    startedHacking = false
-		    end
-	    end)
-    end
+		end
+	    	end)
+	end
 end
 
 RegisterNetEvent("szi_atmrobbery:startHacker")
@@ -189,7 +189,7 @@ end)
 RegisterNetEvent('szi_atmrobbery:notifyPolice')
 AddEventHandler('szi_atmrobbery:notifyPolice', function(msg)
 	if GetDependency("MythicNotify") then 
-        exports['mythic_notify']:DoHudText('error', msg)
+        	exports['mythic_notify']:DoHudText('error', msg)
 	else
 		ESX.ShowNotification(msg)
 	end
@@ -213,17 +213,17 @@ AddEventHandler('szi_atmrobbery:blip', function(x,y,z)
 end)
 
 function Cooldown(hasStarted)
-    local timer = GetOptions("CooldownTime")
-    while hasStarted == true do
-        Citizen.Wait(1000)
-        if timer > 0 then
-            timer = timer -1
-        end
+local timer = GetOptions("CooldownTime")
+	while hasStarted == true do
+		Citizen.Wait(1000)
+        	if timer > 0 then
+            		timer = timer -1
+        	end
 
-        if timer == 1 then
+		if timer == 1 then
 			hasStarted = false
 			startedHacking = false
-            break
-        end
-    end
+		break
+        	end
+	end
 end
