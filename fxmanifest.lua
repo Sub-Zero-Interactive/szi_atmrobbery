@@ -6,15 +6,20 @@ description 'This is a script that allows you to rob atms using fivem-target or 
 version '1.7'
 
 server_scripts {
+    '@es_extended/locale.lua',
+    'locales/*.lua',
     'config.lua',
     'server/server.lua'
 }
 
 client_scripts {
+    '@es_extended/locale.lua',
+    'locales/*.lua',
     'config.lua',
     'client/client.lua'
 }
 
 dependencies {
+    'es_extended',
     'mythic_progbar',
 }

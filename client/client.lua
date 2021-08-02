@@ -25,8 +25,8 @@ local taken = 0
 
 DeleteObject(prop)
 Citizen.CreateThread(function()
-	while QBCore == nil do
-		TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
+	while ESX == nil do
+		TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 		Citizen.Wait(100)
 	end
 end)
@@ -99,7 +99,7 @@ function FinishHacking(success)
         	end
         	TaskPlayAnim(PlayerPedId(),stealanim.dictionary,stealanim.animation,1.0,1.0,-1,1,0,false,false,false)
         	cancontinue = true
-					QBCore.Functions.Notify("Press [DEL] To Stop Robbing!")
+        	ESX.ShowHelpNotification(_U('press_stop'))
 		exports['mythic_progbar']:Progress({
 			name = "using",
 			duration = GetOptions("RobTime") * 1000,
@@ -126,7 +126,7 @@ function FinishHacking(success)
 		end)
 	else
 		if not (taken < GetOptions("MaxTake")) then
-			QBCore.Functions.Notify("There is Nothing Left To Steal!", "error")
+		    ESX.ShowHelpNotification(_U('max_amount'))
 		end
 		ClearPedTasks(PlayerPedId())
 		cancontinue = false
@@ -146,7 +146,7 @@ end
 function StartHacking()
 	if not startedHacking then
 		startedHacking = true
-		QBCore.Functions.TriggerCallback('szi_atmrobbery:canHack', function(CanHack)
+		ESX.TriggerServerCallback('szi_atmrobbery:canHack', function(CanHack)
 		if CanHack then
                 	local chance = math.random(GetOptions("MinChance"), GetOptions("MaxChance"))
 			local pos = GetEntityCoords(PlayerPedId(),  true)
@@ -172,7 +172,7 @@ function StartHacking()
 					FinishHackings(true)
 				end
 		else
-			QBCore.Functions.Notify("You Cannot Hack!", "error")
+			    ESX.ShowHelpNotification(_U('cant_hack'), false, true, 2000)
 			    Wait(2000)
 			    hasStarted = false
 			    startedHacking = false
@@ -191,7 +191,7 @@ AddEventHandler('szi_atmrobbery:notifyPolice', function(msg)
 	if GetDependency("MythicNotify") then 
         	exports['mythic_notify']:DoHudText('error', msg)
 	else
-		QBCore.Functions.Notify(msg)
+		ESX.ShowNotification(msg)
 	end
 end)
 
