@@ -44,11 +44,11 @@ ESX.RegisterServerCallback('szi_atmrobbery:canHack', function(source, cb, pos)
 	end
     
 	if (itemcount == #(Config.RequiredItems)) and (police >= GetOptions("PoliceRequired")) then
-	    cb(true)
-	    itemcount = 0
+		cb(true)
+	    	itemcount = 0
 	else
-	    cb(false)
-	    itemcount = 0
+	    	cb(false)
+	    	itemcount = 0
 		if police < GetOptions("PoliceRequired") then
 			TriggerClientEvent('esx:showNotification', source, _U('min_police', GetOptions("PoliceRequired")))
 		end
@@ -59,17 +59,17 @@ RegisterNetEvent("szi_atmrobbery:success")
 AddEventHandler('szi_atmrobbery:success', function(pos)
 	local xPlayer = ESX.GetPlayerFromId(source)
 	for k,v in pairs(Config.Rewards) do
-        if (v.name ~= "money") and (v.name ~= "bank") and (v.name ~= "black_money") then
-		    if xPlayer.canCarryItem(v.name, v.amount) then
-    	    	xPlayer.addInventoryItem(v.name, v.amount)
-	    	else
-   	     	    xPlayer.showNotification(_U('no_room'))
-	    	end
-        elseif (v.name == "bank") or (v.name == "black_money") then
-            xPlayer.addAccountMoney(v.name, v.amount)
+        	if (v.name ~= "money") and (v.name ~= "bank") and (v.name ~= "black_money") then
+			if xPlayer.canCarryItem(v.name, v.amount) then
+    	    			xPlayer.addInventoryItem(v.name, v.amount)
+	    		else
+   	     			xPlayer.showNotification(_U('no_room'))
+	    		end
+       		elseif (v.name == "bank") or (v.name == "black_money") then
+        		xPlayer.addAccountMoney(v.name, v.amount)
 		elseif (v.name == "money") then
-            xPlayer.addMoney(v.amount)
-        end
+        		xPlayer.addMoney(v.amount)
+        	end
 	end
 end)
 
@@ -85,15 +85,15 @@ end)
 
 RegisterNetEvent('szi_atmrobbery:notifyPolice')
 AddEventHandler('szi_atmrobbery:notifyPolice', function(street1, street2, pos)
-    local xPlayers = ESX.GetPlayers()
-    local startedHacking = true
+	local xPlayers = ESX.GetPlayers()
+    	local startedHacking = true
 
-    if startedHacking == true then
+  	if startedHacking == true then
 		for i=1, #xPlayers, 1 do
 			local xPlayer = ESX.GetPlayerFromId(xPlayers[i])
-            if xPlayer.job.name == 'police' then
-                TriggerClientEvent('szi_atmrobbery:blip', xPlayers[i], pos.x, pos.y, pos.z)
-                TriggerClientEvent('szi_atmrobbery:notifyPolice', xPlayers[i], 'Robbery In Progress : ATM | ' .. street1 .. " | " .. street2 .. ' ')
+           		if xPlayer.job.name == 'police' then
+                		TriggerClientEvent('szi_atmrobbery:blip', xPlayers[i], pos.x, pos.y, pos.z)
+                		TriggerClientEvent('szi_atmrobbery:notifyPolice', xPlayers[i], 'Robbery In Progress : ATM | ' .. street1 .. " | " .. street2 .. ' ')
 			end
 		end
 	end
@@ -102,13 +102,13 @@ end)
 Citizen.CreateThread(function()
         local vRaw = LoadResourceFile(GetCurrentResourceName(), 'version.json')
         if vRaw then
-            local v = json.decode(vRaw)
-            PerformHttpRequest('https://raw.githubusercontent.com/Sub-Zero-Interactive/szi_atmrobbery/main/version.json', function(code, res, headers)
-                if code == 200 then
-                    local rv = json.decode(res)
-                    if rv.version == v.version then
-                        if rv.commit ~= v.commit then 
-                            print(([[
+		local v = json.decode(vRaw)
+            	PerformHttpRequest('https://raw.githubusercontent.com/Sub-Zero-Interactive/szi_atmrobbery/main/version.json', function(code, res, headers)
+                	if code == 200 then
+                    		local rv = json.decode(res)
+                    		if rv.version == v.version then
+                        		if rv.commit ~= v.commit then 
+                            		print(([[
 ^1----------------------------------------------------------------------
 ^1WARNING: YOUR SZI_ATMROBBERY IS OUTDATED!
 ^1COMMIT UPDATE: ^5%s AVAILABLE
@@ -116,8 +116,8 @@ Citizen.CreateThread(function()
 ^1CHANGELOG:^5 %s
 ^1-----------------------------------------------------------------------
 ^0]]):format(rv.commit, rv.changelog))
-                        else
-                            print(([[
+                        		else
+                           		 print(([[
 ^8-------------------------------------------------------
 ^2Your szi_atmrobbery is the latest version!
 ^5Version:^0 %s
@@ -125,9 +125,9 @@ Citizen.CreateThread(function()
 ^5CHANGELOG:^0 %s
 ^8-------------------------------------------------------
 ^0]]):format( rv.version, rv.commit, rv.changelog))
-                        end
-                    else
-                        print(([[
+                        		end
+                   		else
+                       		print(([[
 ^1----------------------------------------------------------------------
 ^1URGENT: YOUR SZI_ATMROBBERY IS OUTDATATED!!!
 ^1COMMIT UPDATE: ^5%s AVAILABLE
@@ -135,11 +135,11 @@ Citizen.CreateThread(function()
 ^1CHANGELOG:^5 %s
 ^1-----------------------------------------------------------------------
 ^0]]):format(rv.commit, rv.changelog))
-                    end
-                else
-                    print('[^1ERROR^0] szi_atmrobbery unable to check version!')
-                end
-            end,'GET'
-        )
-    end
+                   		end
+               		else
+                    	print('[^1ERROR^0] szi_atmrobbery unable to check version!')
+                	end
+            	end,'GET'
+        	)
+    	end
 end)
