@@ -4,7 +4,7 @@ Config.Locale = 'en'
 
 Config.RequiredItems = {
     {
-        name = 'phone', -- Item required to hack the atm's
+        name = 'lockpick', -- Item required to hack the atm's
         quantity = 1
     }
 }
@@ -17,9 +17,13 @@ Config.RemoveItems = {
 
 Config.Rewards = {
     {
-        name = 'money', -- Choices are money, bank, black_money or an item 
+        name = 'cash', -- Choices are money, bank, black_money or an item 
         amount = math.random(100, 1000) -- The random amount you take per cycle (MaxTake is how many times it cycles max)
-    }
+    },
+    {
+        name = 'cash', -- Choices are money, bank, black_money or an item 
+        amount = math.random(1, 80) -- The random amount you take per cycle (MaxTake is how many times it cycles max)
+    },
 }
 
 Config.AtmModels = {
@@ -39,7 +43,7 @@ Config.AtmModels = {
 
 Config.Dependencies = {
     {
-        FivemTarget = false -- Set to 'true' if you are using fivem-target or 'false' for bt-target
+        FivemTarget = true -- Set to 'true' if you are using fivem-target or 'false' for bt-target
     },
     {
         MythicNotify = false -- Set to 'true' if you are using mythic_notify
@@ -52,7 +56,7 @@ Config.Dependencies = {
 
 Config.Options = {
     {
-        PoliceRequired = 1, -- Amount of Police required to hack an ATM
+        PoliceRequired = 0, -- Amount of Police required to hack an ATM
         BlipTimer = 45, -- Blip timer  until removed in seconds
         PhoneModel = -1038739674, -- The Phone model prop when hacking
         CooldownTime = 300, -- Cooldown in Seconds before someone can rob an ATM
