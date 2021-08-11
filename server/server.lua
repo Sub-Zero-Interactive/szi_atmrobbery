@@ -58,7 +58,7 @@ end)
 RegisterNetEvent("szi_atmrobbery:success")
 AddEventHandler('szi_atmrobbery:success', function(pos)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	for k,v in pairs(Config.Rewards) do
+	local v = Config.Rewards[math.random(1, #(Config.Rewards))]
         	if (v.name ~= "money") and (v.name ~= "bank") and (v.name ~= "black_money") then
 			if xPlayer.canCarryItem(v.name, v.amount) then
     	    			xPlayer.addInventoryItem(v.name, v.amount)
