@@ -70,7 +70,6 @@ AddEventHandler('szi_atmrobbery:success', function(pos)
 		elseif (v.name == "money") then
         		xPlayer.addMoney(v.amount)
         	end
-	end
 end)
 
 RegisterNetEvent("szi_atmrobbery:hackSuccess")
